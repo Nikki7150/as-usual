@@ -8,7 +8,8 @@
     "scheme": "asusual",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/expo.icon"
+      "icon": "./assets/expo.icon",
+      "bundleIdentifier": "com.nishka150.as-usual"
     },
     "android": {
       "adaptiveIcon": {
