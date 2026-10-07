@@ -1,6 +1,13 @@
-import { Slot } from "expo-router";
-import AppTabs from "@/components/app-tabs";
+import { Stack } from "expo-router";
 
 export default function AppLayout() {
-    return <AppTabs />;
+    return (
+        <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="day/[date]" />
+            <Stack.Screen name="task/[id]" options={{ presentation: 'modal' }} />
+            <Stack.Screen name="task/new" options={{ presentation: 'modal' }} />
+            <Stack.Screen name="templates/index" />
+            <Stack.Screen name="index" />
+        </Stack>
+    )
 }
