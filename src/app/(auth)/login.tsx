@@ -51,7 +51,7 @@ export default function LoginScreen() {
             <Pressable onPress={() => handleLogin()}>
                 <Text style={styles.buttonText}>{submitting ? 'Processing...' : 'Login'}</Text>
             </Pressable>
-            <Link href="/signup" style={{ flex: 1 }}>Don't have an account? Sign Up</Link>
+            <Link replace href="/signup" style={{ flex: 1 }}>Don't have an account? Sign Up</Link>
         </View>
     );
 }

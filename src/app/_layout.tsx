@@ -23,12 +23,13 @@ export default function TabLayout() {
   const colorScheme = useColorScheme();
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
-        {user ? (
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Protected guard={!!user}>
           <Stack.Screen name="(app)" />
-        ) : (
-          <Stack.Screen name='(auth)' />
-        )}
+        </Stack.Protected>
+        <Stack.Protected guard={!user}>
+          <Stack.Screen name="(auth)" />
+        </Stack.Protected>
       </Stack>
     </ThemeProvider>
   );
