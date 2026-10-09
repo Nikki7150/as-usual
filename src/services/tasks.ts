@@ -1,5 +1,5 @@
 // Write tasks to firestore through code
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import { Task } from "@/types";
 
@@ -16,4 +16,23 @@ export async function addTask(task: NewTask) {
         createdAt: serverTimestamp(), 
     });
     return docRef.id;
-}
+};
+
+export type TasksCallback = (tasks: Task[]) => void;
+
+export async function subscribeToTasks(userId: string, date: string, callback: TasksCallback) {
+    const taskRef = collection(db, "users", userId, "days", date, "tasks");
+    const unsubscribe = onSnapshot(taskRef, (querySnapshot) => {
+        const taskList: Task[] = [];
+        querySnapshot.forEach((doc) => {
+            taskList.push({
+                id: doc.id,
+                ...(doc.data() as Omit<Task, "id">)
+            } as Task);
+        });
+        callback(taskList);
+    }, (error) => {
+        console.error("Error listening to task change: ", error);
+    });
+    return unsubscribe;
+};

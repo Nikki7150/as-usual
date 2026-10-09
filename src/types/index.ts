@@ -8,7 +8,7 @@ export interface Task {
     createdAt: Timestamp;
     userId: string;
     minutesBefore: number | null;
-    taskTime: string | null; // "08:00" format
+    taskTime: string; // "08:00" format
     date: string; // date of task - "2026-10-07" (YYYY-MM-DD)
 }
 
@@ -17,6 +17,6 @@ export interface RecurringTemplate {
     createdAt: Timestamp;
     userId: string;
     minutesBefore: number | null; // minutes before the actual time for reminder 
-    taskTime: string | null; // "08:00" format
+    taskTime: string; // "08:00" format
     repeatedDays: number[]; // stores Date().getDay()
 }

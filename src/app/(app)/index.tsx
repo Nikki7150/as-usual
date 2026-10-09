@@ -4,34 +4,31 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ThemedView } from '@/components/themed-view';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
 import { Button, View } from "react-native";
-import { useAuthStore } from "@/store/authStore";
-import { addTask } from "@/services/tasks";
+import { getTodayString } from '@/utils/dates';
+import { Redirect } from 'expo-router';
 
 export default function Index() {
-  const user = useAuthStore((s) => s.user);
+  // const user = useAuthStore((s) => s.user);
+  // const handleTest = async () => {
+  //   if (!user) return;
+  //   try {
+  //     const id = await addTask({
+  //       title: "Test task",
+  //       sourceTemplateId: null, // one-off, not from a template
+  //       userId: user.uid,
+  //       minutesBefore: null,
+  //       taskTime: "08:00",
+  //       date: new Date().toLocaleDateString("en-CA"), // "YYYY-MM-DD" in YOUR timezone
+  //     });
+  //     console.log("Saved task:", id);
+  //   } catch (err) {
+  //     console.error("addTask failed:", err);
+  //   }
+  // };
 
-  const handleTest = async () => {
-    if (!user) return;
-    try {
-      const id = await addTask({
-        title: "Test task",
-        sourceTemplateId: null, // one-off, not from a template
-        userId: user.uid,
-        minutesBefore: null,
-        taskTime: "08:00",
-        date: new Date().toLocaleDateString("en-CA"), // "YYYY-MM-DD" in YOUR timezone
-      });
-      console.log("Saved task:", id);
-    } catch (err) {
-      console.error("addTask failed:", err);
-    }
-  };
+  const today = getTodayString();
 
-  return (
-    <View style={{ flex: 1, justifyContent: "center" }}>
-      <Button title="Add test task" onPress={handleTest} />
-    </View>
-  );
+  return <Redirect href={`/day/${today}`} />;
 }
 
 const styles = StyleSheet.create({
